@@ -32,7 +32,9 @@ function App() {
     });
     console.log(newEntry);
     // 新しいエントリを状態に追加
-    setEntries([...entries, newEntry]);
+    if (newEntry.data && newEntry.data.id) {
+      setEntries([...entries, newEntry.data]);
+    }
   }
 
   // useEffectでデータを購読
