@@ -5,7 +5,7 @@ import { schema as generatedSqlSchema } from './schema.sql';
 
 
 // Add a global authorization rule
-const sqlSchema = generatedSqlSchema.authorization(allow => allow.owner())
+const sqlSchema = generatedSqlSchema.authorization((allow) => [allow.publicApiKey()]);
 
 
 /*== STEP 1 ===============================================================
@@ -18,7 +18,7 @@ const schema = a.schema({
   Todo: a
     .model({
       content: a.string(),
-    }).authorization(allow => [allow.owner()]),
+    }).authorization((allow) => [allow.publicApiKey()]),
 
 });
 
@@ -29,12 +29,19 @@ export type Schema = ClientSchema<typeof combinedSchema>;
 export const data = defineData({
   schema: combinedSchema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
+    defaultAuthorizationMode: "apiKey",
     // API Key is used for a.allow.public() rules
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
     },
   },
+  // authorizationModes: {
+  //   defaultAuthorizationMode: 'userPool',
+  //   // API Key is used for a.allow.public() rules
+  //   apiKeyAuthorizationMode: {
+  //     expiresInDays: 30,
+  //   },
+  // },
 });
 
 /*== STEP 2 ===============================================================

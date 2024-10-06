@@ -30,7 +30,7 @@ function App() {
       column1: "サンプルデータ",
       id: entries.length + 1 // 自動インクリメント風に id を設定
     });
-
+    console.log(newEntry);
     // 新しいエントリを状態に追加
     setEntries([...entries, newEntry]);
   }
