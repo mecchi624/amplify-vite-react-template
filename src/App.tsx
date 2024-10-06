@@ -3,13 +3,15 @@ import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const client = generateClient<Schema>();
 
 function App() {
   // Todoの型を指定
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-  const [entries, setEntries] = useState<Array<Schema["newtable"]["type"]>>([]);
+  const [entries, setEntries] = useState<Array<Schema["newtable2"]["type"]>>([]);
 
   // Todoを削除する関数
   function deleteTodo(id: string) {
@@ -26,10 +28,15 @@ function App() {
 
   // newtableにエントリを追加する関数
   async function addNewEntry() {
-    const newEntry = await client.models.newtable.create({
+    // UUIDを生成
+    const newUUID = uuidv4();
+    console.log(newUUID); 
+
+    const newEntry = await client.models.newtable2.create({
       column1: "サンプルデータ",
-      id: entries.length + 1 // 自動インクリメント風に id を設定
+      id: newUUID,
     });
+    console.log(entries);
     console.log(newEntry);
     // 新しいエントリを状態に追加
     if (newEntry.data && newEntry.data.id) {

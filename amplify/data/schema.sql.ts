@@ -16,5 +16,11 @@ export const schema = configure({
         id: a.integer().required()
     }).identifier([
         "id"
+    ]),
+    "newtable2": a.model({
+        id: a.id().required(),
+        column1: a.string()
+    }).identifier([
+        "id"
     ])
 });
