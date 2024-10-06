@@ -5,7 +5,7 @@ import { schema as generatedSqlSchema } from './schema.sql';
 
 
 // Add a global authorization rule
-const sqlSchema = generatedSqlSchema.authorization(allow => allow.guest())
+const sqlSchema = generatedSqlSchema.authorization(allow => allow.owner())
 
 
 /*== STEP 1 ===============================================================
